@@ -40,6 +40,7 @@ if (token) {
 // })
 
 controller.hears('(@.*) time to talk (.*)', ['direct_message', 'message_received', 'direct_mention'], function (bot, message) {
+controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_received', 'direct_mention'], function (bot, message) {
   var recipient = message.match[0].split(':')[0]
   var subject = message.match[2];
   bot.reply(message, 'recipient: ' +recipient)
@@ -56,7 +57,7 @@ controller.hears('(@.*) time to talk (.*)', ['direct_message', 'message_received
             var recipientResponse = response.text;
             convo.next();
             if(recipientResponse == 'yes') {
-              convo.say('Great! I will remind you 15 minutes beforehand to with @mike about '+subject+'.');
+              convo.say('Great! I will remind you 15 minutes beforehand to talk with @mblasius about '+subject+'.');
             } else {
               convo.say('Ok.')
             }
