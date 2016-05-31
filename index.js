@@ -61,9 +61,10 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
               convo.say('Great! I will remind you when its time to talk with @mblasius about '+subject+'.');
               var hour = suggestedTime.split(':')[0];
               var minute = suggestedTime.split(':')[1].substring(0,2);
+              bot.reply(message, 'hour: '+hour+ ' minute: '+minute)
               // var ampm = suggestedTime.match(/(AM|PM)/)
               var today = new Date();
-              var date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour+6, minute, 1);
+              var date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute, 1);
               bot.reply(message, 'date: '+date)
               var reminder = schedule.scheduleJob(date, function(){
                 bot.reply(message, 'It is now time to talk about '+subject+'.');
