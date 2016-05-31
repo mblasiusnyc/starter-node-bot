@@ -44,8 +44,8 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
 // controller.hears('(@.*) time to talk (.*)', ['direct_message', 'message_received', 'direct_mention'], function (bot, message) {
   var recipient = message.match[0].split(':')[0]
   var subject = message.match[2].replace('?', '');
-  // bot.reply(message, 'recipient: ' +recipient)
-  // bot.reply(message, 'subject: ' +subject)
+  bot.reply(message, 'recipient: ' +recipient)
+  bot.reply(message, 'subject: ' +subject)
   bot.startConversation(message, function(err, convo){
     convo.ask('You mentioned that you would like to talk to '+recipient+' about ' +subject+ '. Would you like to set up a reminder to do so?', function(response, convo) {
       if(response.text == 'yes') {
