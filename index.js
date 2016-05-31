@@ -44,8 +44,8 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
 // controller.hears('(@.*) time to talk (.*)', ['direct_message', 'message_received', 'direct_mention'], function (bot, message) {
   var recipient = message.match[0].split(':')[0]
   var subject = message.match[2].replace('?', '');
-  bot.reply(message, 'recipient: ' +recipient)
-  bot.reply(message, 'subject: ' +subject)
+  // bot.reply(message, 'recipient: ' +recipient)
+  // bot.reply(message, 'subject: ' +subject)
   bot.startConversation(message, function(err, convo){
     convo.ask('You mentioned that you would like to talk to Mike ' +subject+ '. Would you like to set up a meeting to do so?', function(response, convo) {
       if(response.text == 'yes') {
@@ -54,11 +54,10 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
           convo.next();
           var suggestedTime = response.text;
           convo.say('You said you want to meet at ' + suggestedTime)
-          convo.ask('@mblasius: Are you available to meet at '+suggestedTime+' to discuss '+subject+'?', function(response, convo) {
+          // convo.ask('@mblasius: Are you available to meet at '+suggestedTime+' to discuss '+subject+'?', function(response, convo) {
             var recipientResponse = response.text;
             convo.next();
             if(recipientResponse == 'yes') {
-              convo.next();
               convo.say('Great! I will remind you when its time to talk with @mblasius about '+subject+'.');
               var hour = suggestedTime.split(':')[0];
               var minute = suggestedTime.split(':')[1].substring(0,2);
