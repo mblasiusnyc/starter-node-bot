@@ -39,7 +39,7 @@ if (token) {
 //   bot.reply(message, 'It\'s nice to talk to you directly.')
 // })
 
-controller.hears('(@.*) .*time to talk (.*)', ['direct_message', 'message_received', 'direct_mention'], function (bot, message) {
+controller.hears('(@.* ) .*time to talk (.*)', ['direct_message', 'message_received', 'direct_mention'], function (bot, message) {
   var recipient = message.match[1]
   var subject = message.match[2];
   bot.reply(message, 'message.match[0]: ' +message.match[0])
