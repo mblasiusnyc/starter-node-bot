@@ -34,13 +34,15 @@ controller.hears(['hello', 'hi'], ['direct_mention'], function (bot, message) {
   bot.reply(message, 'Hello')
 })
 
-controller.hears(['time to talk'], ['direct_message'], function (bot, message) {
-  bot.reply(message, 'message.match: ', message.match)
+controller.hears(['(.*)time to talk(.*)'], ['message_received'], function (bot, message) {
+  bot.reply(message, 'message.match[0]: ', message.match[0])
+  bot.reply(message, 'message.match[1]: ', message.match[1])
   bot.reply(message, 'GET OUT!!!')
   bot.reply(message, 'It\'s nice to talk to you directly.')
 })
 
 controller.hears(['time to talk'], ['direct_message'], function (bot, message) {
+
   bot.startConversation(message,function(err,convo) {
     convo.ask('How are you?',function(response,convo) {
 
