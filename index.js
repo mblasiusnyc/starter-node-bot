@@ -46,11 +46,10 @@ controller.hears('(@.*) time to talk (.*)', ['direct_message', 'message_received
   bot.reply(message, 'subject: ' +subject)
   bot.startConversation(message, function(err, convo){
     convo.ask('You mentioned that you would like to talk to Mike ' +subject+ '. Would you like to set up a meeting to do so?', function(response, convo) {
-      convo.say('You said: ' + response.text)
-      convo.next();
       if(response.text == 'yes') {
+        convo.next();
         convo.ask('Great! When would you like to talk to Mike?', function(response, convo) {
-          var suggestedTime = response;
+          var suggestedTime = response.text;
           convo.say('You said you want to meet at ' + suggestedTime)
           convo.stop()
         })
