@@ -1,4 +1,5 @@
 var Botkit = require('botkit')
+var schedule = require('node-schedule');
 
 var token = process.env.SLACK_TOKEN
 
@@ -57,7 +58,16 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
             var recipientResponse = response.text;
             convo.next();
             if(recipientResponse == 'yes') {
-              convo.say('Great! I will remind you 15 minutes beforehand to talk with @mblasius about '+subject+'.');
+              var hour = suggestedTime.split(':')[0];
+              var minute = suggestedTime.split(':')[1].substring(0,2);
+              var ampm = suggestedTime.match(/(AM|PM)/)
+              var today = newDate();
+              var date = new Date(today.getFullYear(), today.getMonth(), today.getDate, hour, minute, ampm);
+              var reminder = schedule.scheduleJob(date, function(){
+                convo.say('It is now time to talk about '+subject+'.');
+              });
+
+              convo.say('Great! I will remind you when its time to talk with @mblasius about '+subject+'.');
             } else {
               convo.say('Ok.')
             }
