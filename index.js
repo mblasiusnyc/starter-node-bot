@@ -17,7 +17,6 @@ if (token) {
     if (err) {
       throw new Error(err)
     }
-
     console.log('Connected to Slack RTM')
   })
 // Otherwise assume multi-team mode - setup beep boop resourcer connection
@@ -30,7 +29,7 @@ controller.on('bot_channel_join', function (bot, message) {
   bot.reply(message, "TimeToTalkBot has joined the channel.")
 })
 
-controller.hears(['/(.*)time to talk(.*)/g]', ['message_received'], function (bot, message) {
+controller.hears(['/(.*)time to talk(.*)/g]'], ['message_received'], function (bot, message) {
   bot.reply(message, 'message.match[0]: ', message.match[0])
   bot.reply(message, 'message.match[1]: ', message.match[1])
   bot.startConversation(message, function(err, convo){
