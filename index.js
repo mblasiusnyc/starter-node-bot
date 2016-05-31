@@ -48,7 +48,6 @@ controller.hears('(@.*) time to talk (.*)', ['direct_message', 'message_received
   bot.startConversation(message, function(err, convo){
     convo.ask('You mentioned that you would like to talk to Mike ' +subject+ '. Would you like to set up a meeting to do so?', function(response, convo) {
       if(response.toLowercase() == 'yes') {
-        convo.next();
         convo.ask('Great! When would you like to talk to Mike?', function(response, convo) {
           var suggestedTime = response;
           convo.say('You said you want to meet at ' + suggestedTime)
@@ -56,7 +55,7 @@ controller.hears('(@.*) time to talk (.*)', ['direct_message', 'message_received
         })
       } else {
         convo.say('Alrighty then.')
-        convo.end()
+        convo.stop()
       }
     })
   })
