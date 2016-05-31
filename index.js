@@ -34,7 +34,7 @@ controller.hears(['hello', 'hi'], ['direct_mention'], function (bot, message) {
   bot.reply(message, 'Hello')
 })
 
-controller.hears(['(.*)time to talk(.*)'], ['message_received'], function (bot, message) {
+controller.hears([/(.*)time to talk(.*)/g], ['message_received'], function (bot, message) {
   bot.reply(message, 'message.match[0]: ', message.match[0])
   bot.reply(message, 'message.match[1]: ', message.match[1])
   bot.reply(message, 'GET OUT!!!')
