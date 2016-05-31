@@ -42,9 +42,8 @@ if (token) {
 controller.hears('(@.*) time to talk (.*)', ['direct_message', 'message_received', 'direct_mention'], function (bot, message) {
   var recipient = message.match[0].split(':')[0]
   var subject = message.match[2];
-  bot.reply(message, 'message.match[0]: ' +message.match[0])
-  bot.reply(message, 'message.match[1]: ' +message.match[1])
-  bot.reply(message, 'message.match[2]: ' +message.match[2])
+  bot.reply(message, 'recipient: ' +recipient)
+  bot.reply(message, 'subject: ' +subject)
   console.log('message: ', message)
   bot.startConversation(message, function(err, convo){
     convo.ask('You mentioned that you would like to talk to Mike ' +subject+ '. Would you like to set up a meeting to do so?', function(response, convo) {
