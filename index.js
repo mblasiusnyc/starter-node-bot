@@ -38,8 +38,18 @@ controller.hears(['/(.*)time to talk(.*)/g]', ['message_received'], function (bo
   bot.reply(message, 'message.match[0]: ', message.match[0])
   bot.reply(message, 'message.match[1]: ', message.match[1])
   bot.startConversation(message, function(err, convo){
-    convo.ask('You mentioned that you would like to talk to Mike about ' + message.match[1] + '. Would you like to set up a meeting to do so?')
-
+    convo.ask('You mentioned that you would like to talk to Mike about ' + message.match[1] + '. Would you like to set up a meeting to do so?', function(response, convo) {
+      if(response.toLowercase() == 'yes') {
+        convo.ask('Great! When would you like to talk to Mike?', function(response, convo) {
+          var suggestedTime = response;
+          convo.say('You said you want to meet at ' + suggestedTime)
+          convo.next()
+        })
+      } else {
+        convo.say('Alrighty then.')
+        convo.next()
+      }
+    })
   })
 })
 
