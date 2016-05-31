@@ -41,18 +41,17 @@ controller.hears([/(.*)time to talk(.*)/g], ['message_received'], function (bot,
   bot.reply(message, 'It\'s nice to talk to you directly.')
 })
 
-controller.hears(['time to talk'], ['direct_message'], function (bot, message) {
+// controller.hears(['time to talk'], ['direct_message'], function (bot, message) {
+//   bot.startConversation(message,function(err,convo) {
+//     convo.ask('How are you?',function(response,convo) {
 
-  bot.startConversation(message,function(err,convo) {
-    convo.ask('How are you?',function(response,convo) {
+//       convo.say('Cool, you said: ' + response.text);
+//       convo.next();
 
-      convo.say('Cool, you said: ' + response.text);
-      convo.next();
+//     });
 
-    });
-
-  })
-})
+//   })
+// })
 
 controller.hears('.*', ['mention'], function (bot, message) {
   bot.reply(message, 'You really do care about me. :heart:')
