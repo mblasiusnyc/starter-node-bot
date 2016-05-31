@@ -52,6 +52,7 @@ controller.hears('(@.*) time to talk (.*)', ['direct_message', 'message_received
           convo.next();
           var suggestedTime = response.text;
           convo.say('You said you want to meet at ' + suggestedTime)
+          convo.say('@mblasius: Are you available to meet at '+suggestedTime+' to discuss '+subject+'?')
         })
       } else {
         convo.say('Alrighty then.')
