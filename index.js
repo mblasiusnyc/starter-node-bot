@@ -47,7 +47,7 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
   // bot.reply(message, 'recipient: ' +recipient)
   // bot.reply(message, 'subject: ' +subject)
   bot.startConversation(message, function(err, convo){
-    convo.ask('You mentioned that you would like to talk to Mike ' +subject+ '. Would you like to set up a meeting to do so?', function(response, convo) {
+    convo.ask('You mentioned that you would like to talk to Mike about ' +subject+ '. Would you like to set up a meeting to do so?', function(response, convo) {
       if(response.text == 'yes') {
         convo.next();
         convo.ask('Great! When would you like to talk to Mike?', function(response, convo) {
@@ -63,7 +63,7 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
               var minute = suggestedTime.split(':')[1].substring(0,2);
               // var ampm = suggestedTime.match(/(AM|PM)/)
               var today = newDate();
-              var date = new Date(today.getFullYear(), today.getMonth(), today.getDate, hour, minute, 1);
+              var date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute, 1);
               var reminder = schedule.scheduleJob(date, function(){
                 bot.reply('It is now time to talk about '+subject+'.');
               });
