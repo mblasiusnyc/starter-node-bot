@@ -53,8 +53,8 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
         convo.ask('Great! When would you like to talk to Mike?', function(response, convo) {
           convo.next();
           var suggestedTime = response.text;
-          convo.say('You said you want to meet at ' + suggestedTime)
-          // convo.ask('@mblasius: Are you available to meet at '+suggestedTime+' to discuss '+subject+'?', function(response, convo) {
+          // convo.say('You said you want to meet at ' + suggestedTime)
+          convo.ask('@mblasius: Are you available to meet at '+suggestedTime+' to discuss '+subject+'?', function(response, convo) {
             var recipientResponse = response.text;
             convo.next();
             if(recipientResponse == 'yes') {
@@ -67,7 +67,6 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
               var reminder = schedule.scheduleJob(date, function(){
                 bot.reply('It is now time to talk about '+subject+'.');
               });
-
             } else {
               convo.say('Ok.')
             }
