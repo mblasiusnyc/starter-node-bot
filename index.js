@@ -52,7 +52,14 @@ controller.hears('(@.*) time to talk (.*)', ['direct_message', 'message_received
           convo.next();
           var suggestedTime = response.text;
           convo.say('You said you want to meet at ' + suggestedTime)
-          convo.say('@mblasius: Are you available to meet at '+suggestedTime+' to discuss '+subject+'?')
+          convo.ask('@mblasius: Are you available to meet at '+suggestedTime+' to discuss '+subject+'?', function(response, convo) {
+            var recipientResponse = response.text;
+            if(recipientResponse == 'yes') {
+              convo.say('Great! I will remind you 15 minutes beforehand to with @mike about '+subject+'.');
+            } else {
+              convo.say('Ok.')
+            }
+          })
         })
       } else {
         convo.say('Alrighty then.')
