@@ -39,6 +39,23 @@ controller.hears(['hello', 'hi'], ['direct_message'], function (bot, message) {
   bot.reply(message, 'It\'s nice to talk to you directly.')
 })
 
+controller.hears(['time to talk'], ['direct_message'], function (bot, message) {
+  // start a conversation to handle this response.
+  bot.reply(message, 'The message was: ' + message)
+  bot.reply(message, 'The bot was: ' + bot)
+
+  bot.startConversation(message,function(err,convo) {
+
+    convo.ask('How are you?',function(response,convo) {
+
+      convo.say('Cool, you said: ' + response.text);
+      convo.next();
+
+    });
+
+  })
+})
+
 controller.hears('.*', ['mention'], function (bot, message) {
   bot.reply(message, 'You really do care about me. :heart:')
 })
