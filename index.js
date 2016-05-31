@@ -39,14 +39,15 @@ if (token) {
 //   bot.reply(message, 'It\'s nice to talk to you directly.')
 // })
 
-controller.hears('(.*)time to talk (.*)', ['direct_message', 'message_received', 'direct_mention'], function (bot, message) {
+controller.hears('(@.*) .*time to talk (.*)', ['direct_message', 'message_received', 'direct_mention'], function (bot, message) {
+  var recipient = message.match[1]
   var subject = message.match[2];
   bot.reply(message, 'message.match[0]: ' +message.match[0])
   bot.reply(message, 'message.match[1]: ' +message.match[1])
   bot.reply(message, 'message.match[2]: ' +message.match[2])
   console.log('message: ', message)
   bot.startConversation(message, function(err, convo){
-    convo.ask('You mentioned that you would like to talk to Mike about ' + subject + '. Would you like to set up a meeting to do so?', function(response, convo) {
+    convo.ask('You mentioned that you would like to talk to Mike ' +subject+ '. Would you like to set up a meeting to do so?', function(response, convo) {
       if(response.toLowercase() == 'yes') {
         convo.next();
         convo.ask('Great! When would you like to talk to Mike?', function(response, convo) {
