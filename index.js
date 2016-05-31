@@ -59,7 +59,7 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
             convo.next();
             if(recipientResponse == 'yes') {
               convo.say('Great! I will remind you when its time to talk with @mblasius about '+subject+'.');
-              var hour = Number(suggestedTime.split(':')[0]);
+              var hour = Number(suggestedTime.split(':')[0])+6;
               var minute = Number(suggestedTime.split(':')[1].substring(0,2));
               var ampm = suggestedTime.match(/PM/)
               if(ampm) hour = Number(hour)+12;
