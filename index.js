@@ -54,6 +54,7 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
     }
   }, function(err,httpResponse,body){
     recipient = body.user;
+    bot.reply(message, 'recipient: '+ recipient)
     bot.startConversation(message, function(err, convo){
       convo.ask('You mentioned that you would like to talk to '+recipient.name+' about ' +subject+ '. Would you like to set up a reminder to do so?', function(response, convo) {
         if(response.text == 'yes') {
