@@ -57,7 +57,9 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
   //   bot.reply(message, 'recipient: ' +recipient);
   // })
 bot.startPrivateConversation(message, function(err, convo) {
-  convo.say('This is private!')
+  for(key in message) {
+    convo.say(key+ ': '+message[key])
+  }
 })
 
   // bot.startConversation(message, function(err, convo){
