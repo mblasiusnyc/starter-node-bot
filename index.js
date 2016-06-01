@@ -64,7 +64,7 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
           convo.next();
           var suggestedTime = response.text;
           // convo.say('You said you want to meet at ' + suggestedTime)
-          bot.startPrivateConversation(recipient.id, function(err, conversation) {
+          bot.startPrivateConversation({user: recipient.id}, function(err, conversation) {
             conversation.ask('How are you feeling today?')
           })
           convo.ask('@mblasius: Are you available to meet at '+suggestedTime+' to discuss '+subject+'?', function(response, convo) {
