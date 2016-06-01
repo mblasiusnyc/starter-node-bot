@@ -42,7 +42,7 @@ if (token) {
 // })
 
 controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_received', 'direct_mention'], function (bot, message) {
-// controller.hears('(@.*) time to talk (.*)', ['direct_message', 'message_received', 'direct_mention'], function (bot, message) {
+  bot.reply('I heard a message.')
   var recipient = message.match[0].split(':')[0].substring(1, message.match[0].split(':')[0].length-1);
   var subject = message.match[2].replace('?', '');
   bot.reply(message, 'recipient: ' +recipient)
@@ -53,7 +53,8 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
       user: recipient
     }
   }, function(err,httpResponse,body){
-    recipient = JSON.parse(body).user;
+    recipient = JSON.parse(body);
+    bot.reply(message, 'recipient.user: ' +recipient.user);
     bot.reply(message, 'recipient: ' +recipient);
   })
 
