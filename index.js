@@ -63,7 +63,7 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
         convo.ask('Great! When would you like to talk to '+recipient.name+'?', function(response, convo) {
           convo.next();
           var suggestedTime = response.text;
-          convo.ask('@mblasius: Are you available to meet at '+suggestedTime+' to discuss '+subject+'?', function(response, convo) {
+          convo.ask('@'+recipient.name+': Are you available to meet at '+suggestedTime+' to discuss '+subject+'?', function(response, convo) {
             var recipientResponse = response.text;
             convo.next();
             if(recipientResponse == 'yes') {
