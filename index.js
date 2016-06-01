@@ -47,13 +47,17 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
   var subject = message.match[2].replace('?', '');
   bot.reply(message, 'recipient: ' +recipient)
   bot.reply(message, 'subject: ' +subject)
-  request.post('https://slack.com/api/users.info', {
-    token: 'xoxp-47069036593-47053403748-47196571601-d72b35c5f7',
-    user: recipient
-  }, function(err, userData) {
-    bot.reply('err: '+err)
-    bot.reply('user: '+user)
+  request.post({url:'https://slack.com/api/users.info', 
+    form: {
+      token: 'xoxp-47069036593-47053403748-47196571601-d72b35c5f7',
+      user: recipient
+    }
+  }, function(err,httpResponse,body){
+    bot.reply(message, 'err: ' +err)
+    bot.reply(message, 'httpResponse: ' +httpResponse)
+    bot.reply(message, 'body: ' +body)
   })
+
   bot.startConversation(message, function(err, convo){
     convo.ask('You mentioned that you would like to talk to '+recipient+' about ' +subject+ '. Would you like to set up a reminder to do so?', function(response, convo) {
       if(response.text == 'yes') {
