@@ -53,7 +53,7 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
       user: recipient
     }
   }, function(err,httpResponse,body){
-    bot.reply(message, 'body.user: ' +body.user)
+    bot.reply(message, 'body: ' +body)
   })
 
   bot.startConversation(message, function(err, convo){
