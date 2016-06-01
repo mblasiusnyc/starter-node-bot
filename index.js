@@ -53,8 +53,8 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
       user: recipient
     }
   }, function(err,httpResponse,body){
-    recipient = JSON.parse(body.user)
-    bot.reply(message, 'recipient: ' +recipient)
+    recipient = JSON.parse(body).user;
+    bot.reply(message, 'recipient: ' +recipient);
   })
 
   bot.startConversation(message, function(err, convo){
