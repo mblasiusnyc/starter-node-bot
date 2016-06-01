@@ -56,11 +56,13 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
   //   recipient = JSON.parse(body).user;
   //   bot.reply(message, 'recipient: ' +recipient);
   // })
-bot.startPrivateConversation(message, function(err, convo) {
-  for(key in message) {
-    convo.say(key+ ': '+message[key])
-  }
-})
+  bot.say(
+    {
+      text: 'this is a test',
+      channel: recipient
+    }
+  )
+
 
   // bot.startConversation(message, function(err, convo){
   //   convo.ask('You mentioned that you would like to talk to '+recipient.name+' about ' +subject+ '. Would you like to set up a reminder to do so?', function(response, convo) {
