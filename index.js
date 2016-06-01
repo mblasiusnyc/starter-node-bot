@@ -53,14 +53,15 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
       user: recipient
     }
   }, function(err,httpResponse,body){
-    bot.reply(message, 'body: ' +body)
+    recipient = JSON.parse(body.user)
+    bot.reply(message, 'recipient: ' +recipient)
   })
 
   bot.startConversation(message, function(err, convo){
-    convo.ask('You mentioned that you would like to talk to '+recipient+' about ' +subject+ '. Would you like to set up a reminder to do so?', function(response, convo) {
+    convo.ask('You mentioned that you would like to talk to '+recipient.name+' about ' +subject+ '. Would you like to set up a reminder to do so?', function(response, convo) {
       if(response.text == 'yes') {
         convo.next();
-        convo.ask('Great! When would you like to talk to '+recipient+'?', function(response, convo) {
+        convo.ask('Great! When would you like to talk to '+recipient.name+'?', function(response, convo) {
           convo.next();
           var suggestedTime = response.text;
           // convo.say('You said you want to meet at ' + suggestedTime)
