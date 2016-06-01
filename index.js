@@ -48,45 +48,45 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
   bot.reply(message, 'recipient: ' +recipient)
   bot.reply(message, 'subject: ' +subject)
   request.post('https://slack.com/api/users.info', {
-    token: SLACK_TOKEN,
+    token: 'xoxp-47069036593-47053403748-47196571601-d72b35c5f7',
     user: recipient
   }, function(err, userData) {
     bot.reply('err: '+err)
-    bot.reply('userData: '+userData)
-    bot.startConversation(message, function(err, convo){
-      convo.ask('You mentioned that you would like to talk to '+recipient+' about ' +subject+ '. Would you like to set up a reminder to do so?', function(response, convo) {
-        if(response.text == 'yes') {
+    bot.reply('user: '+user)
+  })
+  bot.startConversation(message, function(err, convo){
+    convo.ask('You mentioned that you would like to talk to '+recipient+' about ' +subject+ '. Would you like to set up a reminder to do so?', function(response, convo) {
+      if(response.text == 'yes') {
+        convo.next();
+        convo.ask('Great! When would you like to talk to '+recipient+'?', function(response, convo) {
           convo.next();
-          convo.ask('Great! When would you like to talk to '+recipient+'?', function(response, convo) {
+          var suggestedTime = response.text;
+          // convo.say('You said you want to meet at ' + suggestedTime)
+          convo.ask('@mblasius: Are you available to meet at '+suggestedTime+' to discuss '+subject+'?', function(response, convo) {
+            var recipientResponse = response.text;
             convo.next();
-            var suggestedTime = response.text;
-            // convo.say('You said you want to meet at ' + suggestedTime)
-            convo.ask('@mblasius: Are you available to meet at '+suggestedTime+' to discuss '+subject+'?', function(response, convo) {
-              var recipientResponse = response.text;
-              convo.next();
-              if(recipientResponse == 'yes') {
-                convo.say('Great! I will remind you when its time to talk with @mblasius about '+subject+'.');
-                var hour = Number(suggestedTime.split(':')[0])+6;
-                var minute = Number(suggestedTime.split(':')[1].substring(0,2));
-                var ampm = suggestedTime.match(/PM/)
-                if(ampm) hour = Number(hour)+12;
-                var today = new Date();
-                var date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute, 1);
-                // bot.reply(message, 'hour: '+hour+ ' minute: '+minute+ ' ampm: '+ampm)
-                // bot.reply(message, 'date: '+date)
-                var reminder = schedule.scheduleJob(date, function(){
-                  bot.reply(message, 'It is now time to talk about '+subject+'.');
-                });
-              } else {
-                convo.say('Ok. I won\'t remind you');
-              }
-            })
+            if(recipientResponse == 'yes') {
+              convo.say('Great! I will remind you when its time to talk with @mblasius about '+subject+'.');
+              var hour = Number(suggestedTime.split(':')[0])+6;
+              var minute = Number(suggestedTime.split(':')[1].substring(0,2));
+              var ampm = suggestedTime.match(/PM/)
+              if(ampm) hour = Number(hour)+12;
+              var today = new Date();
+              var date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute, 1);
+              // bot.reply(message, 'hour: '+hour+ ' minute: '+minute+ ' ampm: '+ampm)
+              // bot.reply(message, 'date: '+date)
+              var reminder = schedule.scheduleJob(date, function(){
+                bot.reply(message, 'It is now time to talk about '+subject+'.');
+              });
+            } else {
+              convo.say('Ok. I won\'t remind you');
+            }
           })
-        } else {
-          convo.say('Alrighty then.')
-          convo.next()
-        }
-      })
+        })
+      } else {
+        convo.say('Alrighty then.')
+        convo.next()
+      }
     })
   })
 })
