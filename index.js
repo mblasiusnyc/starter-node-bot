@@ -65,11 +65,11 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
           convo.next();
           var suggestedTime = response.text;
           // convo.say('You said you want to meet at ' + suggestedTime)
-          convo.ask('@mblasius: Are you available to meet at '+suggestedTime+' to discuss '+subject+'?', function(response, convo) {
+          convo.ask('@'+recipient.name+': Are you available to meet at '+suggestedTime+' to discuss '+subject+'?', function(response, convo) {
             var recipientResponse = response.text;
             convo.next();
             if(recipientResponse == 'yes') {
-              convo.say('Great! I will remind you when its time to talk with @mblasius about '+subject+'.');
+              convo.say('Great! I will remind you when its time to talk with @'+recipient.name+' about '+subject+'.');
               var hour = Number(suggestedTime.split(':')[0])+6;
               var minute = Number(suggestedTime.split(':')[1].substring(0,2));
               var ampm = suggestedTime.match(/PM/)
