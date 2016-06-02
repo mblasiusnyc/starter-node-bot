@@ -80,7 +80,7 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
                   bot.reply(message, 'It is now time to talk about '+subject+'.');
                   convo.ask('It is now time to talk about '+subject+'. Do you want to snooze this conversation? (If yes, enter number of minutes to snooze.', function(response, convo) {
                     if(typeof response.text === Number) {
-                      var snoozeDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute+Number(response.text), 1);
+                      var snoozeDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()-1, hour, minute+Number(response.text), 1);
                       var snoozeReminder = schedule.scheduleJob(snoozeDate, function(){
                         bot.say(message, 'It\'s time to talk to '+recipient.name+' about '+subject+'. Stop putting it off!');
                       })
