@@ -74,19 +74,19 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
             var today = new Date();
             var date = new Date(today.getFullYear(), today.getMonth(), today.getDate()-1, hour, minute, 1);
             var reminder = schedule.scheduleJob(date, function(){
-              // bot.reply(message, 'It is now time to talk about '+subject+'.');
-              convo.next();
-              convo.ask('It is now time to talk about '+subject+'. Do you want to snooze this conversation? (If yes, enter number of minutes to snooze.', function(response, convo) {
-              // convo.next()
-                if(typeof response.text === Number) {
-                  var snoozeDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute+Number(response.text), 1);
-                  var snoozeReminder = schedule.scheduleJob(snoozeDate, function(){
-                    bot.say(message, 'It\'s time to talk to '+recipient.name+' about '+subject+'. Stop putting it off!');
-                  })
-                } else {
-                  bot.reply(message, 'You talked to '+recipient.name+' about '+subject+'. I\'m proud of you!');
-                }
-              })
+              bot.reply(message, 'It is now time to talk about '+subject+'.');
+              // convo.next();
+              // convo.ask('It is now time to talk about '+subject+'. Do you want to snooze this conversation? (If yes, enter number of minutes to snooze.', function(response, convo) {
+              // // convo.next()
+              //   if(typeof response.text === Number) {
+              //     var snoozeDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, minute+Number(response.text), 1);
+              //     var snoozeReminder = schedule.scheduleJob(snoozeDate, function(){
+              //       bot.say(message, 'It\'s time to talk to '+recipient.name+' about '+subject+'. Stop putting it off!');
+              //     })
+              //   } else {
+              //     bot.reply(message, 'You talked to '+recipient.name+' about '+subject+'. I\'m proud of you!');
+              //   }
+              // })
             });
               // } else {
               //   convo.say('Ok. I won\'t remind you');
