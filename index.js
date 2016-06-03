@@ -7,7 +7,7 @@ var token = process.env.SLACK_TOKEN
 var controller = Botkit.slackbot({
   // reconnect to Slack RTM when connection goes bad
   retry: Infinity,
-  debug: false
+  debug: 7
 })
 
 // Assume single team mode if we have a SLACK_TOKEN
@@ -75,6 +75,7 @@ controller.hears('(@.*) time to talk about (.*)\?', ['direct_message', 'message_
             var date = new Date(today.getFullYear(), today.getMonth(), today.getDate()-1, hour, minute, 1);
             var reminder = schedule.scheduleJob(date, function(){
               // bot.reply(message, 'It is now time to talk about '+subject+'.');
+              convo.next();
               convo.ask('It is now time to talk about '+subject+'. Do you want to snooze this conversation? (If yes, enter number of minutes to snooze.', function(response, convo) {
               // convo.next()
                 if(typeof response.text === Number) {
